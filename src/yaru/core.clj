@@ -1,6 +1,15 @@
-(ns yaru.core)
+(ns yaru.core
+  (:use ring.middleware.params
+        ring.middleware.default-charset
+        ring.adapter.jetty))
 
 (defn handler [request]
   {:status 200
    :headers {"Content-Type" "text/html"}
-   :body "Hello World"})
+   :body (str "Hello " ((:params request) "name"))})
+
+(def app
+  (-> (wrap-default-charset handler "utf-8") wrap-params))
+
+(run-jetty app {:port 3000})
+
