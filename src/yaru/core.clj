@@ -9,7 +9,9 @@
    :body (str "Hello " ((:params request) "name"))})
 
 (def app
-  (-> (wrap-default-charset handler "utf-8") wrap-params))
+  (-> handler
+      (wrap-default-charset "utf-8")
+      (wrap-params)))
 
 (run-jetty app {:port 3000})
 
