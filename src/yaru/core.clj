@@ -1,5 +1,6 @@
 (ns yaru.core
-  (:use ring.middleware.params
+  (:use ring.adapter.jetty
+        ring.middleware.params
         ring.middleware.default-charset))
 
 (defn handler [request]
@@ -12,3 +13,5 @@
       (wrap-default-charset "utf-8")
       (wrap-params)))
 
+(defn -main []
+  (run-jetty app {:port 3000}))
