@@ -1,6 +1,6 @@
 # yaru
 
-A Clojure library designed to ... well, that part is up to you.
+...was there something you wanted to do?
 
 ## Usage
 
@@ -8,7 +8,7 @@ FIXME
 
 ## License
 
-Copyright © 2017 FIXME
+Copyright © 2017 Ædipa Moss
 
 Distributed under the Eclipse Public License either version 1.0 or (at
 your option) any later version.
