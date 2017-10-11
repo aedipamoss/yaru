@@ -1,12 +1,18 @@
 (ns yaru.core
+  (:require [compojure.core :refer :all]
+            [compojure.route :as route])
   (:use ring.adapter.jetty
         ring.middleware.params
         ring.middleware.default-charset))
 
-(defn handler [request]
+(defn hello [name]
   {:status 200
    :headers {"Content-Type" "text/html"}
-   :body (str "Hello " ((:params request) "name"))})
+   :body (str "Hello " name)})
+
+(defroutes handler
+  (routes
+   (GET "/hello/:name" [name] (hello name))))
 
 (def app
   (-> handler
