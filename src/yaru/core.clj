@@ -1,25 +1,17 @@
 (ns yaru.core
   (:require [compojure.core :refer :all]
-            [compojure.route :as route])
+            [compojure.route :as route]
+            [ring.util.response :refer [response]])
   (:use ring.adapter.jetty
         ring.middleware.params
         ring.middleware.default-charset
         yaru.thing))
 
 (defn hello [name]
-  {:status 200
-   :headers {"Content-Type" "text/html"}
-   :body (str "Hello " name)})
+  (response (str "Hello " name)))
 
 (defn show-thing [id]
-  {:status 200
-   :headers {"Content-Type" "text/html"}
-   :body (str (get-thing id))})
-
-(defn create-thing []
-  {:status 200
-   :headers {"Content-Type" "text/html"}
-   :body (
+  (response (str (get-thing id))))
 
 (defroutes handler
   (routes
