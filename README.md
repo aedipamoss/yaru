@@ -8,6 +8,7 @@ FIXME
 
 ## Details
 
+```
 Thing: _Just do it._
   ex. banana, gohan, deploy to staging
 
@@ -19,6 +20,7 @@ Thing: _Just do it._
   API:
     get-thing: ([thing-id]) -> {thing}
     # ...
+```
 
 ## License
 
