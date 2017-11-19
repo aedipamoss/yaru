@@ -28,8 +28,8 @@
 
 (def app
   (-> handler
-      (wrap-default-charset "utf-8")
-      (wrap-params)))
+      wrap-params
+      (wrap-default-charset "utf-8")))
 
 (defn -main []
   (run-jetty app {:port 3000}))
