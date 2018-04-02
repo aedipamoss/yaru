@@ -10,6 +10,7 @@
                  [ring/ring-jetty-adapter "1.6.2"]
                  [ring/ring-json "0.4.0"]
                  [ring/ring-headers "0.3.0"]
+                 [ring/ring-mock "0.3.2"]
                  [com.layerware/hugsql "0.4.8"]
                  [org.xerial/sqlite-jdbc "3.21.0.1"]
                  [org.clojure/java.jdbc "0.7.5"]]
