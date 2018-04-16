@@ -38,3 +38,12 @@ where id = :id
 -- :doc Get all things
 select * from things
 order by id
+
+-- Updates thing by id
+-- :name update-thing-by-id :! :n
+-- :doc Updates thing by id
+update things
+set title = :title,
+    color = :color,
+    priority = :priority
+where id = :id
