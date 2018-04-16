@@ -15,7 +15,13 @@ create table things (
 
 -- A :result value of :n below will return affected rows:
 -- :name insert-thing :! :n
--- :doc Insert a single thing returning affected row count
+-- :doc Insert a single thing and return affected row count
+insert into things (title, color, priority)
+values (:title, :color, :priority)
+
+-- A :result value of generated keys
+-- :name insert-thing-return-keys :insert :raw
+-- :doc Insert a single thing with an sql returning clase
 insert into things (title, color, priority)
 values (:title, :color, :priority)
 
