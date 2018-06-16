@@ -3,6 +3,19 @@
             [yaru.db :refer [db]]
             [yaru.db.things :as things]))
 
+(defn setup []
+  (things/create-things-table db))
+
+(defn teardown []
+  (things/drop-things-table db))
+
+(defn each-fixture [f]
+  (setup)
+  (f)
+  (teardown))
+
+(use-fixtures :each each-fixture)
+
 (deftest test-create-things
   (things/insert-thing db {:title "omg"
                            :color "red"
@@ -17,7 +30,17 @@
     (is (= "blue" (:color (things/thing-by-id db {:id id}))))))
 
 (deftest test-all-things
+  (things/insert-thing db {:title "creating a thing"
+                           :color "yellow"
+                           :priority "medium"})
   (is (> (count (things/all-things db)) 0)))
+
+(deftest test-all-things-vector
+  (things/insert-thing db {:title "creating a thing"
+                           :color "yellow"
+                           :priority "medium"})
+  (let [result (things/all-things db)]
+    (is (= "yellow" (:color (first result))))))
 
 (deftest test-update-thing-by-id
   (let [result (things/insert-thing-return-keys db {:title "some typo"

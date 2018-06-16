@@ -13,6 +13,10 @@ create table things (
   created_at timestamp not null default current_timestamp
 )
 
+-- :name drop-things-table :!
+-- :doc Drop things table if it exists
+drop table things
+
 -- A :result value of :n below will return affected rows:
 -- :name insert-thing :! :n
 -- :doc Insert a single thing and return affected row count
