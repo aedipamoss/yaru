@@ -51,3 +51,12 @@
         updated (conj thing {:title "fixed typo"})]
     (things/update-thing-by-id db updated)
     (is (= "fixed typo" (:title (things/thing-by-id db {:id id}))))))
+
+(deftest test-delete-a-thing
+  (let [result (things/insert-thing-return-keys db {:title "delete me"
+                                                :color "blue"
+                                                :priority "low"})
+        id ((keyword "last_insert_rowid()") result)
+        thing (things/thing-by-id db {:id id})]
+    (things/delete-thing-by-id db {:id id})
+    (is (= nil (things/thing-by-id db {:id id})))))

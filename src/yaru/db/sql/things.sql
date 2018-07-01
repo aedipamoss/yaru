@@ -51,3 +51,7 @@ set title = :title,
     color = :color,
     priority = :priority
 where id = :id
+
+-- Deletes thing by id
+-- :name delete-thing-by-id :! :n
+delete from things where id = :id
