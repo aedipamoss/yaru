@@ -15,11 +15,6 @@
 (defn show-thing [id]
   (response (str (get-thing id))))
 
-(defn create-thing [request]
-  (let [request (wrap-json-body request)]
-    (prn request)
-    (response "created thing.")))
-
 (defroutes handler
   (routes
    (GET "/hello/:name" [name] (hello name))
@@ -29,7 +24,8 @@
 (def app
   (-> handler
       wrap-params
-      (wrap-default-charset "utf-8")))
+      (wrap-default-charset "utf-8")
+      (wrap-json-body {:keywords? true})))
 
 (defn -main []
   (run-jetty app {:port 3000}))
