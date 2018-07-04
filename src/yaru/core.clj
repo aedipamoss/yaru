@@ -1,5 +1,5 @@
 (ns yaru.core
-  (:require [compojure.core :refer [defroutes routes GET POST]]
+  (:require [compojure.core :refer [defroutes routes GET POST PUT]]
             [ring.middleware.json :refer [wrap-json-body wrap-json-response]]
             [ring.util.response :refer [response]]
             [yaru.thing :as things])
@@ -11,7 +11,8 @@
   (routes
    (GET "/things" [] (things/all-things))
    (GET "/thing/:id" [id] (things/get-thing id))
-   (POST "/thing" request (things/create-thing request))))
+   (POST "/thing" request (things/create-thing request))
+   (PUT "/thing/:id" request (things/update-thing request))))
 
 (def app
   (-> handler

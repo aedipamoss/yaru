@@ -15,3 +15,8 @@
         id ((keyword "last_insert_rowid()") result)
         thing (db.things/thing-by-id db {:id id})]
     {:status 200 :body thing}))
+
+(defn update-thing [request]
+  (let [result (db.things/update-thing-by-id db (:body request))
+        thing (db.things/thing-by-id db {:id result})]
+    {:status 200 :body thing}))

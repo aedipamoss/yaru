@@ -19,7 +19,7 @@
 
 (use-fixtures :each each-fixture)
 
-(deftest test-thing-routes
+(deftest test-get-thing
   (let [result (things/insert-thing-return-keys db {:title "my thing"
                                                     :color "red"
                                                     :priority "high"})
@@ -41,7 +41,7 @@
     (is (= 200 (:status response)))
     (is (= expected parsed))))
 
-(deftest test-create-thing-routes
+(deftest test-create-thing
   (let [thing {:title "my new thing"
                :color "green"
                :priority "low"}
@@ -51,3 +51,18 @@
         json-resp (parse-string (:body response))]
     (is (= 200 (:status response)))
     (is (= "green" (get json-resp "color")))))
+
+(deftest test-update-thing
+  (let [result (things/insert-thing-return-keys db {:title "a typo"
+                                                    :color "red"
+                                                    :priority "high"})
+        id ((keyword "last_insert_rowid()") result)
+        thing (things/thing-by-id db {:id id})
+        fixed (conj thing {:title "fixed"})
+        response (app (-> (request :put (str "/thing/" id))
+                          (json-body fixed)))
+        updated (things/thing-by-id db {:id id})
+        parsed (parse-string (:body response))
+        expected (parse-string (generate-string updated))]
+    (is (= 200 (:status response)))
+    (is (= expected parsed))))
