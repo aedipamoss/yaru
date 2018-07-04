@@ -25,7 +25,7 @@ values (:title, :color, :priority)
 
 -- A :result value of generated keys
 -- :name insert-thing-return-keys :insert :raw
--- :doc Insert a single thing with an sql returning clase
+-- :doc Insert a single thing with an sql returning clause
 insert into things (title, color, priority)
 values (:title, :color, :priority)
 

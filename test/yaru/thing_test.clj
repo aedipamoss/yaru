@@ -1,5 +1,6 @@
 (ns yaru.thing-test
-  (:require [clojure.test :refer :all]
+  (:require [cheshire.core :refer [generate-string parse-string]]
+            [clojure.test :refer :all]
             [ring.mock.request :refer :all]
             [yaru.core :refer :all]
             [yaru.db :refer [db]]
@@ -24,9 +25,21 @@
                                                     :priority "high"})
         id ((keyword "last_insert_rowid()") result)
         thing (things/thing-by-id db {:id id})
-        json-resp (cheshire.core/generate-string thing)]
+        json-resp (generate-string thing)]
     (is (= 200 (:status (app (request :get (str "/thing/" id))))))
     (is (= json-resp (:body (app (request :get (str "/thing/" id))))))))
+
+(deftest test-all-things
+  (let [result (things/insert-thing-return-keys db {:title "another thing"
+                                                    :color "yellow"
+                                                    :priority "medium"})
+        id ((keyword "last_insert_rowid()") result)
+        thing (things/thing-by-id db {:id id})
+        response (app (request :get "/things"))
+        parsed (parse-string (:body response))
+        expected (parse-string (generate-string [thing]))]
+    (is (= 200 (:status response)))
+    (is (= expected parsed))))
 
 (deftest test-create-thing-routes
   (let [thing {:title "my new thing"
@@ -35,6 +48,6 @@
         response (app (-> (request :post "/thing")
                           (json-body thing)))
         last-thing (last (things/all-things db))
-        json-resp (cheshire.core/parse-string (:body response))]
+        json-resp (parse-string (:body response))]
     (is (= 200 (:status response)))
     (is (= "green" (get json-resp "color")))))

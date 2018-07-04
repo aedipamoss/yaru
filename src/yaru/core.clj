@@ -9,6 +9,7 @@
 
 (defroutes handler
   (routes
+   (GET "/things" [] (things/all-things))
    (GET "/thing/:id" [id] (things/get-thing id))
    (POST "/thing" request (things/create-thing request))))
 
