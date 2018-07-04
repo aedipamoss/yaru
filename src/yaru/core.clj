@@ -9,12 +9,8 @@
         ring.middleware.params
         ring.middleware.default-charset))
 
-(defn hello [name]
-  (response (str "Hello " name)))
-
 (defroutes handler
   (routes
-   (GET "/hello/:name" [name] (hello name))
    (GET "/thing/:id" [id] (things/get-thing id))
    (POST "/thing" request (things/create-thing request))))
 
