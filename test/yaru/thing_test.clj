@@ -35,6 +35,6 @@
         response (app (-> (request :post "/thing")
                           (json-body thing)))
         last-thing (last (things/all-things db))
-        json-response (cheshire.core/parse-string (:body response))]
+        json-resp (cheshire.core/parse-string (:body response))]
     (is (= 200 (:status response)))
-    (is (= "green" (get json-response "color")))))
+    (is (= "green" (get json-resp "color")))))
