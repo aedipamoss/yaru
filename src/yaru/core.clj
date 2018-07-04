@@ -1,7 +1,5 @@
 (ns yaru.core
-  (:require [cheshire.core :refer :all]
-            [compojure.core :refer :all]
-            [compojure.route :as route]
+  (:require [compojure.core :refer [defroutes routes GET POST]]
             [ring.middleware.json :refer [wrap-json-body wrap-json-response]]
             [ring.util.response :refer [response]]
             [yaru.thing :as things])
