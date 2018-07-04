@@ -26,8 +26,8 @@
         id ((keyword "last_insert_rowid()") result)
         thing (things/thing-by-id db {:id id})
         json-resp (generate-string thing)]
-    (is (= 200 (:status (app (request :get (str "/thing/" id))))))
-    (is (= json-resp (:body (app (request :get (str "/thing/" id))))))))
+    (is (= 200 (:status (app (request :get (str "/things/" id))))))
+    (is (= json-resp (:body (app (request :get (str "/things/" id))))))))
 
 (deftest test-all-things
   (let [result (things/insert-thing-return-keys db {:title "another thing"
@@ -45,7 +45,7 @@
   (let [thing {:title "my new thing"
                :color "green"
                :priority "low"}
-        response (app (-> (request :post "/thing")
+        response (app (-> (request :post "/things")
                           (json-body thing)))
         last-thing (last (things/all-things db))
         json-resp (parse-string (:body response))]
@@ -59,7 +59,7 @@
         id ((keyword "last_insert_rowid()") result)
         thing (things/thing-by-id db {:id id})
         fixed (conj thing {:title "fixed"})
-        response (app (-> (request :put (str "/thing/" id))
+        response (app (-> (request :put (str "/things/" id))
                           (json-body fixed)))
         updated (things/thing-by-id db {:id id})
         parsed (parse-string (:body response))
