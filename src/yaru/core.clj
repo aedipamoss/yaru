@@ -1,5 +1,5 @@
 (ns yaru.core
-  (:require [compojure.core :refer [defroutes routes GET POST PUT]]
+  (:require [compojure.core :refer [defroutes routes GET POST PUT DELETE]]
             [ring.middleware.json :refer [wrap-json-body wrap-json-response]]
             [ring.util.response :refer [response]]
             [yaru.thing :as things])
@@ -9,6 +9,7 @@
 
 (defroutes handler
   (routes
+   (DELETE "/things/:id" [id] (things/delete-thing id))
    (GET "/things" [] (things/all-things))
    (GET "/thing/:id" [id] (things/get-thing id))
    (POST "/thing" request (things/create-thing request))

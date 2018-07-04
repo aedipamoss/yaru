@@ -66,3 +66,15 @@
         expected (parse-string (generate-string updated))]
     (is (= 200 (:status response)))
     (is (= expected parsed))))
+
+(deftest test-delete-thing
+  (let [result (things/insert-thing-return-keys db {:title "delete me"
+                                                    :color "blue"
+                                                    :priority "low"})
+        id ((keyword "last_insert_rowid()") result)
+        thing (things/thing-by-id db {:id id})
+        response (app (request :delete (str "/things/" id)))
+        last-thing (last (things/all-things db))]
+    (is (= nil (things/thing-by-id db {:id id})))
+    (is (= 200 (:status response)))
+    (is (= id (:body response)))))
