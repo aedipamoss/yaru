@@ -74,7 +74,8 @@
         id ((keyword "last_insert_rowid()") result)
         thing (things/thing-by-id db {:id id})
         response (app (request :delete (str "/things/" id)))
-        last-thing (last (things/all-things db))]
+        parsed (parse-string (:body response))
+        expected (parse-string (generate-string thing))]
     (is (= nil (things/thing-by-id db {:id id})))
     (is (= 200 (:status response)))
-    (is (= id (:body response)))))
+    (is (= expected parsed))))

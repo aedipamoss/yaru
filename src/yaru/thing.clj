@@ -23,5 +23,6 @@
     {:status 200 :body thing}))
 
 (defn delete [id]
-  (let [result (db.things/delete-thing-by-id db {:id id})]
-    {:status 200 :body result}))
+  (let [thing (db.things/thing-by-id db {:id id})
+        result (db.things/delete-thing-by-id db {:id id})]
+    {:status 200 :body thing}))
