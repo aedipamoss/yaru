@@ -9,11 +9,11 @@
 
 (defroutes handler
   (routes
-   (DELETE "/things/:id" [id] (things/delete-thing id))
-   (GET "/things" [] (things/all-things))
-   (GET "/things/:id" [id] (things/get-thing id))
-   (POST "/things" request (things/create-thing request))
-   (PUT "/things/:id" request (things/update-thing request))))
+   (DELETE "/things/:id" [id] (things/delete id))
+   (GET "/things" [] (things/list))
+   (GET "/things/:id" [id] (things/get id))
+   (POST "/things" request (things/post request))
+   (PUT "/things/:id" request (things/put request))))
 
 (def app
   (-> handler

@@ -19,7 +19,7 @@
 
 (use-fixtures :each each-fixture)
 
-(deftest test-get-thing
+(deftest test-get
   (let [result (things/insert-thing-return-keys db {:title "my thing"
                                                     :color "red"
                                                     :priority "high"})
@@ -29,7 +29,7 @@
     (is (= 200 (:status (app (request :get (str "/things/" id))))))
     (is (= json-resp (:body (app (request :get (str "/things/" id))))))))
 
-(deftest test-all-things
+(deftest test-list
   (let [result (things/insert-thing-return-keys db {:title "another thing"
                                                     :color "yellow"
                                                     :priority "medium"})
@@ -41,7 +41,7 @@
     (is (= 200 (:status response)))
     (is (= expected parsed))))
 
-(deftest test-create-thing
+(deftest test-post
   (let [thing {:title "my new thing"
                :color "green"
                :priority "low"}
@@ -52,7 +52,7 @@
     (is (= 200 (:status response)))
     (is (= "green" (get json-resp "color")))))
 
-(deftest test-update-thing
+(deftest test-put
   (let [result (things/insert-thing-return-keys db {:title "a typo"
                                                     :color "red"
                                                     :priority "high"})
@@ -67,7 +67,7 @@
     (is (= 200 (:status response)))
     (is (= expected parsed))))
 
-(deftest test-delete-thing
+(deftest test-delete
   (let [result (things/insert-thing-return-keys db {:title "delete me"
                                                     :color "blue"
                                                     :priority "low"})
