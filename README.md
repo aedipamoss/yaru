@@ -42,22 +42,21 @@ Should return back the following result:
 
 ## Details
 
-```
-Thing: _Just do it._
-  ex. banana, gohan, deploy to staging
 
-  Attributes:
-    Title: Description of the task at hand
-    Color: Hex code to be displayed later
-    Priority: High, Medium, or Low
+* Thing: _Just do it._
+  * ex. banana, gohan, deploy to staging
 
-  API:
-    GET: "/things/:id": thing/get: ([id]) -> {thing}
-	GET: "/things": thing/list: ([]) -> [{thing},...]
-	POST: "/things": thing/post: ([thing]) -> {thing}
-	PUT: "/things/:id": thing/put: ([id thing]) -> {thing}
-	DELETE: "/things/:id": thing/delete: ([id]) -> {thing}
-```
+* Attributes:
+  * Title: Description of the task at hand
+  * Color: Hex code to be displayed later
+  * Priority: High, Medium, or Low
+
+* API:
+  * `GET: "/things/:id": thing/get: ([id]) -> {thing}`
+  * `GET: "/things": thing/list: ([]) -> [{thing},...]`
+  * `POST: "/things": thing/post: ([thing]) -> {thing}`
+  * `PUT: "/things/:id": thing/put: ([id thing]) -> {thing}`
+  * `DELETE: "/things/:id": thing/delete: ([id]) -> {thing}`
 
 ## License
 
