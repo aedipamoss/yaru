@@ -11,14 +11,14 @@
   (let [things (db.things/all-things db)]
     {:status 200 :body things}))
 
-(defn post [thing]
-  (let [result (db.things/insert-thing-return-keys db thing)
+(defn post [params]
+  (let [result (db.things/insert-thing-return-keys db params)
         id ((keyword "last_insert_rowid()") result)
         thing (db.things/thing-by-id db {:id id})]
     {:status 200 :body thing}))
 
-(defn put [id thing]
-  (let [result (db.things/update-thing-by-id db thing)
+(defn put [id params]
+  (let [result (db.things/update-thing-by-id db params)
         thing (db.things/thing-by-id db {:id id})]
     {:status 200 :body thing}))
 

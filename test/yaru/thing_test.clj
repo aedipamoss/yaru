@@ -46,7 +46,7 @@
                :color "green"
                :priority "low"}
         response (app (-> (request :post "/things")
-                          (json-body {:thing thing})))
+                          (json-body thing)))
         last-thing (last (things/all-things db))
         json-resp (parse-string (:body response))]
     (is (= 200 (:status response)))
@@ -60,7 +60,7 @@
         thing (things/thing-by-id db {:id id})
         fixed (conj thing {:title "fixed"})
         response (app (-> (request :put (str "/things/" id))
-                          (json-body {:thing fixed})))
+                          (json-body fixed)))
         updated (things/thing-by-id db {:id id})
         parsed (parse-string (:body response))
         expected (parse-string (generate-string updated))]
