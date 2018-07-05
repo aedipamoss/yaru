@@ -3,8 +3,8 @@
             [yaru.db.things :as db.things])
   (:refer-clojure :exclude (list get delete)))
 
-(defn get [thing-id]
-  (let [thing (db.things/thing-by-id db {:id thing-id})]
+(defn get [id]
+  (let [thing (db.things/thing-by-id db {:id id})]
     {:status 200 :body thing}))
 
 (defn list []
