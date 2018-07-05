@@ -1,10 +1,44 @@
 # yaru
 
-...was there something you wanted to do?
+Illustration of building an API service in Clojure.
 
 ## Usage
 
-FIXME
+### 1. `$ lein run`
+
+This will start the web server at localhost:3000
+
+### 2. Create a thing
+
+```
+curl -X POST -H "Content-Type: application/json" -d '
+{
+	"thing": {
+		"title": "bar",
+		"color": "green",
+		"priority": "low"
+	}
+}' http://localhost:3000/things
+```
+
+### 3. Fetch a thing
+
+```
+curl -X GET -H "Content-Type: application/json" http://localhost:3000/things/1
+```
+
+Should return back the following result:
+
+```json
+{
+	"thing": {
+		"title": "bar",
+		"color": "green",
+		"priority": "low"
+	}
+}
+```
+
 
 ## Details
 
@@ -18,8 +52,11 @@ Thing: _Just do it._
     Priority: High, Medium, or Low
 
   API:
-    get-thing: ([thing-id]) -> {thing}
-    # ...
+    GET: "/things/:id": thing/get: ([id]) -> {thing}
+	GET: "/things": thing/list: ([]) -> [{thing},...]
+	POST: "/things": thing/post: ([thing]) -> {thing}
+	PUT: "/things/:id": thing/put: ([id thing]) -> {thing}
+	DELETE: "/things/:id": thing/delete: ([id]) -> {thing}
 ```
 
 ## License
