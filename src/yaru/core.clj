@@ -1,6 +1,7 @@
 (ns yaru.core
   (:require [compojure.core :refer [defroutes routes GET POST PUT DELETE]]
-            [ring.middleware.json :refer [wrap-json-body wrap-json-response]]
+            [ring.middleware.keyword-params :refer [wrap-keyword-params]]
+            [ring.middleware.json :refer [wrap-json-response wrap-json-params]]
             [ring.util.response :refer [response]]
             [yaru.thing :as things])
   (:use ring.adapter.jetty
@@ -12,14 +13,14 @@
    (DELETE "/things/:id" [id] (things/delete id))
    (GET "/things" [] (things/list))
    (GET "/things/:id" [id] (things/get id))
-   (POST "/things" request (things/post request))
-   (PUT "/things/:id" request (things/put request))))
+   (POST "/things" {{thing :thing} :params} (things/post thing))
+   (PUT "/things/:id" {{id :id} :route-params {thing :thing} :params}  (things/put id thing))))
 
 (def app
   (-> handler
-      wrap-params
       (wrap-default-charset "utf-8")
-      (wrap-json-body {:keywords? true})
+      wrap-keyword-params
+      wrap-json-params
       wrap-json-response))
 
 (defn -main []
